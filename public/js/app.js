@@ -1763,7 +1763,7 @@ __webpack_require__.r(__webpack_exports__);
         password: this.password,
         remember: this.remember
       }).then(function (resp) {
-        console.log(resp);
+        location.reload();
       })["catch"](function (error) {
         console.log(error);
       });

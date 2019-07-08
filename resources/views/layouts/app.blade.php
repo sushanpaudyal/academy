@@ -40,7 +40,11 @@
                  <ul class="topbar-nav nav">
                      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
 
-                     <li class="nav-item"><a class="nav-link" href="javascript:"data-toggle="modal" data-target="#loginModal">Login</a></li>
+                     @if(auth()->check())
+                        Hey  {{ auth()->user()->name }}
+                         @else
+                         <li class="nav-item"><a class="nav-link" href="javascript:"data-toggle="modal" data-target="#loginModal">Login</a></li>
+                      @endif
 
                  </ul>
              </div>
@@ -58,9 +62,10 @@
      </main>
 
 
-     <vue-login></vue-login>
-
-     <!-- Footer -->
+   @if(!auth()->check())
+         <vue-login></vue-login>
+     @endif
+         <!-- Footer -->
      <footer class="site-footer">
          <div class="container">
              <div class="row gap-y justify-content-center">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <header class="header header-inverse h-fullscreen pb-80" style="background-image: url(assets/img/bg-cup.jpg);" data-overlay="8">
+    <header class="header header-inverse h-fullscreen pb-80" style="background-image: url(assets/img/work.jpg);" data-overlay="8">
         <div class="container text-center">
 
             <div class="row h-full">

@@ -61,7 +61,7 @@ import axios from 'axios'
               axios.post('/login', {
                   email : this.email , password : this.password , remember : this.remember
               }).then(resp => {
-                  console.log(resp)
+                  location.reload()
               }).catch(error => {
                   console.log(error)
               })
