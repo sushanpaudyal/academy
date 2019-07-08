@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Bahdcats\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
