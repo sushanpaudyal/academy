@@ -46,7 +46,8 @@ import axios from 'axios'
            return {
                email : '',
                password : '',
-               remember : true
+               remember : true,
+               loading : false
            }
         },
         methods : {
@@ -58,18 +59,20 @@ import axios from 'axios'
             }
           },
           attemptLogin(){
+                this.loading = true
               axios.post('/login', {
                   email : this.email , password : this.password , remember : this.remember
               }).then(resp => {
                   location.reload()
               }).catch(error => {
+                  this.loading = false
                   console.log(error)
               })
           }
         },
         computed : {
             isValidLoginForm(){
-                return this.emailIsValid && this.password
+                return this.emailIsValid() && this.password && !this.loading
             }
         },
         mounted() {

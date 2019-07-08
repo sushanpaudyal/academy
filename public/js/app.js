@@ -1746,7 +1746,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       email: '',
       password: '',
-      remember: true
+      remember: true,
+      loading: false
     };
   },
   methods: {
@@ -1758,6 +1759,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     attemptLogin: function attemptLogin() {
+      var _this = this;
+
+      this.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/login', {
         email: this.email,
         password: this.password,
@@ -1765,13 +1769,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (resp) {
         location.reload();
       })["catch"](function (error) {
+        _this.loading = false;
         console.log(error);
       });
     }
   },
   computed: {
     isValidLoginForm: function isValidLoginForm() {
-      return this.emailIsValid && this.password;
+      return this.emailIsValid() && this.password && !this.loading;
     }
   },
   mounted: function mounted() {
