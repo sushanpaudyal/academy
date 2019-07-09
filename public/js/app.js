@@ -1740,6 +1740,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1747,7 +1752,8 @@ __webpack_require__.r(__webpack_exports__);
       email: '',
       password: '',
       remember: true,
-      loading: false
+      loading: false,
+      errors: []
     };
   },
   methods: {
@@ -1761,6 +1767,7 @@ __webpack_require__.r(__webpack_exports__);
     attemptLogin: function attemptLogin() {
       var _this = this;
 
+      this.errors = [];
       this.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/login', {
         email: this.email,
@@ -1770,7 +1777,12 @@ __webpack_require__.r(__webpack_exports__);
         location.reload();
       })["catch"](function (error) {
         _this.loading = false;
-        console.log(error);
+
+        if (error.response.status == 422) {
+          _this.errors.push("We couldn't Verify your account details.");
+        } else {
+          _this.errors.push("Something went wrong , Please Refresh");
+        }
       });
     }
   },
@@ -37104,6 +37116,30 @@ var render = function() {
             _c("br"),
             _vm._v(" "),
             _c("form", [
+              _vm.errors.length > 0
+                ? _c(
+                    "ul",
+                    { staticClass: "list-group alert alert-danger" },
+                    _vm._l(_vm.errors, function(error) {
+                      return _c(
+                        "li",
+                        {
+                          key: _vm.errors.indexOf(error),
+                          staticClass: "list-group-item"
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(error) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("input", {
                   directives: [

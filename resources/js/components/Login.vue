@@ -7,6 +7,11 @@
                 <br><br>
 
                 <form>
+                    <ul class="list-group alert alert-danger" v-if="errors.length > 0">
+                        <li class="list-group-item" v-for="error in errors" :key="errors.indexOf(error)">
+                            {{ error }}
+                        </li>
+                    </ul>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Email" v-model="email">
                     </div>
@@ -47,7 +52,10 @@ import axios from 'axios'
                email : '',
                password : '',
                remember : true,
-               loading : false
+               loading : false,
+               errors : [
+
+               ]
            }
         },
         methods : {
@@ -59,6 +67,7 @@ import axios from 'axios'
             }
           },
           attemptLogin(){
+                this.errors = []
                 this.loading = true
               axios.post('/login', {
                   email : this.email , password : this.password , remember : this.remember
@@ -66,7 +75,11 @@ import axios from 'axios'
                   location.reload()
               }).catch(error => {
                   this.loading = false
-                  console.log(error)
+                  if(error.response.status == 422){
+                      this.errors.push("We couldn't Verify your account details.")
+                  } else {
+                      this.errors.push("Something went wrong , Please Refresh")
+                  }
               })
           }
         },
